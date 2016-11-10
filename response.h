@@ -1,8 +1,11 @@
 #include <string>
+#include <vector>
 
 struct response{
-    response(string code, string content_type, string body);
     string code;
     string content_type;
     string body;
+
+    response(string code, string content_type, string body);
+    string generate_response();
 }
