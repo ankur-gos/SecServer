@@ -1,5 +1,7 @@
 #include <string>
 #include <vector>
+#include <algorithm>
+#include "string_util.h"
 
 struct response{
     string code;
