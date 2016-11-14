@@ -1,13 +1,18 @@
+CC=g++
+FLAGS=-c -g -Wall -Wextra -std=c++11
+
 all: obj
 
 obj: main.o response.o string_util.o
-    g++ main.o response.o string_util.o -o SecServer
+	$(CC) main.o response.o string_util.o -o SecServer
 
 main.o: main.cpp
-    g++ -c main.cpp
+	$(CC) $(FLAGS) main.cpp
 
 response.o: response.cpp
-    g++ -c response.cpp
+	$(CC) $(FLAGS) response.cpp
 
 string_util.o: string_util.cpp
-    g++ -c response.cpp
+	$(CC) $(FLAGS) string_util.cpp
+
+# TODO: Make clean

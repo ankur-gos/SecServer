@@ -3,6 +3,8 @@
 #include <algorithm>
 #include "string_util.h"
 
+using namespace std;
+
 struct response{
     string code;
     string content_type;

@@ -8,7 +8,7 @@ response::response(string code, string content_type, string body){
 }
 
 string response::generate_response(){
-    vector<string> strs = new vector<string>();
+    vector<string> strs;
     strs.push_back("HTTP/1.1 ");
     strs.push_back(code);
     string hdr_msg;
@@ -19,10 +19,11 @@ string response::generate_response(){
         hdr_msg = "Failure";
     }
     strs.push_back(hdr_msg);
-    resp.append(" \r\n");
-    resp.append("Content-Type: ");
-    resp.append(content_type);
-    resp.append("\r\n\r\n");
-    resp.append(body);
-    return string_util().vector_concat(reverse(strs.begin(), strs.end()));
+    strs.push_back(" \r\n");
+    strs.push_back("Content-Type: ");
+    strs.push_back(content_type);
+    strs.push_back("\r\n\r\n");
+    strs.push_back(body);
+    reverse(strs.begin(), strs.end());
+    return string_util().vector_concat(strs);
 }
