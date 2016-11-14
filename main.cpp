@@ -12,6 +12,7 @@ using namespace std;
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string>
+#include "response.h"
 
 void error(const char *msg)
 {
@@ -64,9 +65,9 @@ int main(int argc, char *argv[])
             if (n < 0)
                 error("ERROR reading from socket");
             printf("Here is the message: %s\n", buffer);
-            string response = "HTTP/1.1 200 Success \r\nContent-Type: text/html\r\n\r\nHello, World!";
-            n = write(newsockfd, response.c_str(), response.length());
-
+            response* resp = new response("200", "text/html", "Hello world!");
+            string resp_str = resp->generate_response();
+            n = write(newsockfd, resp_str.c_str(), resp_str.length());
             if (n < 0)
                 error("ERROR writing to socket");
             close(newsockfd);
