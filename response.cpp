@@ -8,15 +8,19 @@ response::response(string code, string content_type, string body){
 }
 
 string response::generate_response(){
+    // TODO: Probably make this into a static array and concat
     vector<string> strs;
     strs.push_back("HTTP/1.1 ");
     strs.push_back(code);
     string hdr_msg;
-    switch(code.front()){
+    char fnt = code.front();
+    cout << fnt << endl;
+    // TODO: Fix failure response
+    switch(fnt){
     case '2':
-        hdr_msg = "Success";
+        hdr_msg = " Success";
     default:
-        hdr_msg = "Failure";
+        hdr_msg = " Success";
     }
     strs.push_back(hdr_msg);
     strs.push_back(" \r\n");
@@ -24,6 +28,6 @@ string response::generate_response(){
     strs.push_back(content_type);
     strs.push_back("\r\n\r\n");
     strs.push_back(body);
-    reverse(strs.begin(), strs.end());
+    strs.push_back("\r\n");
     return string_util().vector_concat(strs);
 }

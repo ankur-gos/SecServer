@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 {
     int sockfd, newsockfd, portno;
     socklen_t clilen;
-    char buffer[256];
+    char buffer[1000];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
     if (argc < 2)
@@ -60,13 +60,14 @@ int main(int argc, char *argv[])
         if (pid == 0)
         {
             close(sockfd);
-            bzero(buffer, 256);
-            n = read(newsockfd, buffer, 255);
+            bzero(buffer, 1000);
+            n = read(newsockfd, buffer, 999);
             if (n < 0)
                 error("ERROR reading from socket");
             printf("Here is the message: %s\n", buffer);
             response* resp = new response("200", "text/html", "Hello world!");
             string resp_str = resp->generate_response();
+            cout << resp_str;
             n = write(newsockfd, resp_str.c_str(), resp_str.length());
             if (n < 0)
                 error("ERROR writing to socket");
