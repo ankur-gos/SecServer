@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
         if (pid == 0)
         {
             close(sockfd);
+            // TODO: Dynamic buffer length
             bzero(buffer, 1000);
             n = read(newsockfd, buffer, 999);
             if (n < 0)
