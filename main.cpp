@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
     socklen_t clilen;
     char buffer[1000];
     struct sockaddr_in serv_addr, cli_addr;
-    int n;
     if (argc < 2)
     {
         fprintf(stderr, "ERROR, no port provided\n");
@@ -60,12 +59,18 @@ int main(int argc, char *argv[])
         if (pid == 0)
         {
             close(sockfd);
-            // TODO: Dynamic buffer length
-            bzero(buffer, 1000);
-            n = read(newsockfd, buffer, 999);
-            if (n < 0)
-                error("ERROR reading from socket");
-            printf("Here is the message: %s\n", buffer);
+            // TODO: Load request into a request object
+            cout << "Request: " << endl;
+            bzero(buffer, 256);
+            ssize_t n = 255;
+            while(n == 255){
+                n = read(newsockfd, buffer, 255);
+                if (n < 0)
+                    error("ERROR reading from socket");
+                cout << n << endl;
+                cout << buffer;
+                bzero(buffer, 256);
+            }
             response* resp = new response("200", "text/html", "Hello world!");
             string resp_str = resp->generate_response();
             cout << resp_str;
