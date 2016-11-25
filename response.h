@@ -1,3 +1,6 @@
+#ifndef __RESPONSE_H__
+#define __RESPONSE_H__
+
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -14,3 +17,5 @@ struct response{
     response(string code, string content_type, string body);
     string generate_response();
 };
+
+#endif
